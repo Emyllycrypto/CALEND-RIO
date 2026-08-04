@@ -1,0 +1,522 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Rubik+Mono+One&family=Titan+One&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #3f88c5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  font-family: 'Righteous', cursive;
+}
+
+/* ==============================================
+   📦 CONTAINER E ESTRUTURA COM TAMANHO FIXO
+   ============================================== */
+
+.poster-container {
+  background-color: #4392ce;
+  width: 380px; /* Tamanho padrão fixo */
+  border: 8px solid #fff5e1;
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s ease;
+}
+
+/* Cabeçalho */
+.poster-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.ano-e-tag {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ano {
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 1.8rem;
+  color: #fff5e1;
+  text-shadow: 2px 2px 0px #1d4361;
+}
+
+.etiqueta-special {
+  background-color: #f7b02c;
+  color: #801313;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transform: rotate(8deg);
+  border: 2px dashed #801313;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.titulo-mes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.mes-titulo {
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0px #fff5e1;
+  text-transform: uppercase;
+  text-align: center;
+  width: 210px;
+}
+
+.nav-btn {
+  background-color: #fff5e1;
+  border: 2px solid #1a1a1a;
+  color: #1a1a1a;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.nav-btn:hover {
+  transform: scale(1.15);
+  background-color: #f7b02c;
+}
+
+.faixa-banners {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  justify-content: center;
+}
+
+.banner-badge {
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 2px solid #1a1a1a;
+}
+
+.banner-badge.azul {
+  background-color: #fceade;
+  color: #1a1a1a;
+}
+
+.banner-badge.vermelho {
+  background-color: #d92b2b;
+  color: #ffffff;
+}
+
+/* Moldura Interna */
+.calendario-moldura {
+  background-color: #d92b2b;
+  border: 3px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 3px 3px 0px #1a1a1a;
+  transition: background-color 0.4s ease;
+}
+
+/* Dias da Semana */
+.dias-semana-bar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.semana-quadrado {
+  background-color: #f2c94c;
+  border: 2px solid #1a1a1a;
+  color: #1a1a1a;
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  padding: 3px 0;
+  text-transform: lowercase;
+  transition: background-color 0.4s ease;
+}
+
+/* Grade dos Dias */
+.dias-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dia-box {
+  background-color: #fff8eb;
+  border: 2px solid #d92b2b;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Titan One', cursive;
+  font-size: 1.2rem;
+  color: #d92b2b;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: transform 0.1s, background-color 0.2s, border-color 0.4s, color 0.4s;
+}
+
+.dia-box:active:not(.vazio) {
+  transform: scale(0.95);
+}
+
+/* DIA DE HOJE */
+.dia-box.hoje {
+  background-color: #f2c94c !important;
+  color: #1a1a1a !important;
+  border: 2px solid #1a1a1a !important;
+  box-shadow: inset 0 0 0 1px #fff;
+}
+
+/* Ícone Font Awesome dentro do Dia */
+.dia-box .icone-lembrete {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 0.65rem;
+}
+
+/* Espaços Vazios com Estrelinhas 70s */
+.dia-box.vazio {
+  color: #d92b2b;
+  font-size: 1.2rem;
+  cursor: default;
+}
+
+/* Decorações Flutuantes */
+.morango-lateral {
+  position: absolute;
+  font-size: 1.5rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.top-left { top: 6px; left: 6px; transform: rotate(-15deg); }
+.top-right { top: 6px; right: 70px; transform: rotate(20deg); }
+.bottom-right { bottom: 6px; right: 6px; transform: rotate(-10deg); }
+
+
+/* ==============================================
+   🍓 PALETAS DE CORES FRUTÍFERAS DOS MESES
+   ============================================== */
+
+.poster-container.tema-jan {
+  background-color: #4392ce;
+  .calendario-moldura { background-color: #d92b2b; }
+  .dia-box { border-color: #d92b2b; color: #d92b2b; }
+  .semana-quadrado { background-color: #f2c94c; }
+}
+
+.poster-container.tema-feb {
+  background-color: #7b2cbf;
+  .calendario-moldura { background-color: #3c096c; }
+  .dia-box { border-color: #5a189a; color: #5a189a; }
+  .semana-quadrado { background-color: #ff9e00; }
+}
+
+.poster-container.tema-mar {
+  background-color: #70e000;
+  .calendario-moldura { background-color: #38b000; }
+  .dia-box { border-color: #007200; color: #007200; }
+  .semana-quadrado { background-color: #ffff3f; }
+}
+
+.poster-container.tema-apr {
+  background-color: #ff7b00;
+  .calendario-moldura { background-color: #ff5400; }
+  .dia-box { border-color: #9e2a2b; color: #9e2a2b; }
+  .semana-quadrado { background-color: #ffe6a7; }
+}
+
+.poster-container.tema-may {
+  background-color: #ff758f;
+  .calendario-moldura { background-color: #c9184a; }
+  .dia-box { border-color: #800f2f; color: #800f2f; }
+  .semana-quadrado { background-color: #ffb3c1; }
+}
+
+.poster-container.tema-jun {
+  background-color: #4895ef;
+  .calendario-moldura { background-color: #3f37c9; }
+  .dia-box { border-color: #3f37c9; color: #3f37c9; }
+  .semana-quadrado { background-color: #f72585; }
+}
+
+.poster-container.tema-jul {
+  background-color: #b5179e;
+  .calendario-moldura { background-color: #7209b7; }
+  .dia-box { border-color: #7209b7; color: #7209b7; }
+  .semana-quadrado { background-color: #4cc9f0; }
+}
+
+.poster-container.tema-aug {
+  background-color: #ffb703;
+  .calendario-moldura { background-color: #fb8500; }
+  .dia-box { border-color: #8a5a00; color: #8a5a00; }
+  .semana-quadrado { background-color: #fff1e6; }
+}
+
+.poster-container.tema-sep {
+  background-color: #52b788;
+  .calendario-moldura { background-color: #2d6a4f; }
+  .dia-box { border-color: #1b4332; color: #1b4332; }
+  .semana-quadrado { background-color: #d8f3dc; }
+}
+
+.poster-container.tema-oct {
+  background-color: #6b705c;
+  .calendario-moldura { background-color: #3f4238; }
+  .dia-box { border-color: #3f4238; color: #3f4238; }
+  .semana-quadrado { background-color: #ddbea9; }
+}
+
+.poster-container.tema-nov {
+  background-color: #ff007f;
+  .calendario-moldura { background-color: #38b000; }
+  .dia-box { border-color: #d90429; color: #d90429; }
+  .semana-quadrado { background-color: #ccff33; }
+}
+
+.poster-container.tema-dec {
+  background-color: #9e1223;
+  .calendario-moldura { background-color: #1b4332; }
+  .dia-box { border-color: #9e1223; color: #9e1223; }
+  .semana-quadrado { background-color: #ffb703; }
+}
+
+
+/* ==============================================
+   📝 JANELA FLUTUANTE (MODAL DE NOTAS)
+   ============================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(3px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-overlay.ativo {
+  display: flex;
+}
+
+.modal-cartao {
+  background-color: #fff8eb;
+  border: 4px solid #1a1a1a;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 340px;
+  padding: 20px;
+  box-shadow: 6px 6px 0px #1a1a1a;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: popupAnim 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popupAnim {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-fechar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f2c94c;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header {
+  border-bottom: 2px dashed #d92b2b;
+  padding-bottom: 8px;
+}
+
+.modal-tag {
+  background-color: #d92b2b;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+#modalDataTitulo {
+  color: #1a1a1a;
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+/* SELETOR DE CATEGORIAS */
+.categoria-seletor {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.categoria-seletor label {
+  font-size: 0.8rem;
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+.opcoes-icones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.btn-icone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #fff;
+  border: 2px solid #1a1a1a;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.75rem;
+  font-family: 'Righteous', cursive;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-icone i {
+  font-size: 0.85rem;
+}
+
+.btn-icone.ativo {
+  background-color: #f2c94c;
+  border-color: #d92b2b;
+  font-weight: bold;
+}
+
+#modalTextoNota {
+  width: 100%;
+  height: 90px;
+  background-color: #fceade;
+  border: 2px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  resize: none;
+  outline: none;
+}
+
+#modalTextoNota:focus {
+  border-color: #d92b2b;
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn-modal {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid #1a1a1a;
+  border-radius: 6px;
+  font-family: 'Righteous', cursive;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.1s;
+}
+
+.btn-modal:active {
+  transform: scale(0.95);
+}
+
+.btn-salvar {
+  background-color: #f2c94c;
+  color: #1a1a1a;
+}
+
+.btn-excluir {
+  background-color: #d92b2b;
+  color: white;
+}
+/* Decorações Flutuantes (Imagens PNG) */
+.morango-lateral {
+  position: absolute;
+  width: 35px; /* Controla a largura do PNG */
+  height: auto; /* Mantém a proporção da imagem */
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2)); /* Sombra suave retrô */
+}
+
+.top-left { 
+  top: 6px; 
+  left: 6px; 
+  transform: rotate(-15deg); 
+}
+
+.top-right { 
+  top: 6px; 
+  right: 70px; 
+  transform: rotate(20deg); 
+}
+
+.bottom-right { 
+  bottom: 6px; 
+  right: 6px; 
+  transform: rotate(-10deg); 
+}

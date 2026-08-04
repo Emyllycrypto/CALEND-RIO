@@ -1,0 +1,21 @@
+{
+  "name": "Calendário",
+  "short_name": "Calendário",
+  "description": "Meu calendário retrô e frutífero de lembretes",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#3f88c5",
+  "theme_color": "#4392ce",
+  "icons": [
+    {
+      "src": "morango.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "morango.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
